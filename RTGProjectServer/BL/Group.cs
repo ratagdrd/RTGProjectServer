@@ -11,13 +11,12 @@ namespace ratagServerSide.BL
 		string photo;
 		string roadType; // ('R', 'A', 'B')
 		int numOfParticipants;
-		//int creatorCode;
         int maxAge;
         int minAge;
         int totalPoints;
 
         public Group() { }
-        public Group(int groupCode, string groupName, DateTime createDate, string photo, string roadType, int numOfParticipants, /*int creatorCode,*/ int maxAge, int minAge, int totalPoints)
+        public Group(int groupCode, string groupName, DateTime createDate, string photo, string roadType, int numOfParticipants, int maxAge, int minAge, int totalPoints)
         {
             GroupCode = groupCode;
             GroupName = groupName;
@@ -25,7 +24,6 @@ namespace ratagServerSide.BL
             Photo = photo;
             RoadType = roadType;
             NumOfParticipants = numOfParticipants;
-            //CreatorCode = creatorCode;
             MaxAge = maxAge;
             MinAge = minAge;
             TotalPoints = totalPoints;
@@ -38,7 +36,6 @@ namespace ratagServerSide.BL
         public string Photo { get => photo; set => photo = value; }
         public string RoadType { get => roadType; set => roadType = value; }
         public int NumOfParticipants { get => numOfParticipants; set => numOfParticipants = value; }
-        //public int CreatorCode { get => creatorCode; set => creatorCode = value; }
         public int MaxAge { get => maxAge; set => maxAge = value; }
         public int MinAge { get => minAge; set => minAge = value; }
         public int TotalPoints { get => totalPoints; set => totalPoints = value; }

@@ -49,9 +49,6 @@ using System.Net;
             // Execute the command (numEffected)
             cmd.ExecuteNonQuery();
          int groupCode = Convert.ToInt32(cmd.Parameters["@groupCode"].Value);
-
-            //SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-            //while (dataReader.Read())
                 return groupCode;
         }
         catch (Exception ex)
@@ -935,7 +932,7 @@ using System.Net;
             throw (ex);
         }
 
-        cmd = CreateUpdateSpotWithStoredProcedure("sp_UpdateSpot", con, spot);             // create the command
+        cmd = CreateUpdateSpotWithStoredProcedure("sp_UpdateSpot", con, spot); // create the command
 
         try
         {
@@ -1000,7 +997,7 @@ using System.Net;
             throw (ex);
         }
 
-        cmd = CreateDeleteSpotWithStoredProcedure("sp_DeleteSpot", con, spotId);             // create the command
+        cmd = CreateDeleteSpotWithStoredProcedure("sp_DeleteSpot", con, spotId);   // create the command
 
         try
         {
@@ -1092,7 +1089,6 @@ using System.Net;
 
         cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
 
-        //cmd.Parameters.AddWithValue("@activitycode", activity.Activitycode);
         cmd.Parameters.AddWithValue("@activityName", activity.Activityname);
         cmd.Parameters.AddWithValue("@instructions", activity.Instruction);
         cmd.Parameters.AddWithValue("@rate", activity.Rate);

@@ -10,12 +10,7 @@ namespace ratagServerSide.Controllers
     [ApiController]
     public class SpotController : ControllerBase
     {
-        // GET: api/<spotController>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
+       
 
         // GET api/<spotController>/5
         [HttpGet("{siteCode}")]

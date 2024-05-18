@@ -52,7 +52,6 @@ namespace ratagServerSide.Controllers
 
     
 
-        //אחרי בדיקה עם בני אם בוחרים למחוק - למחוק את כל מה שבקלאס ודיביאס
         //// GET api/<GroupController>/5
         //[HttpGet("getPhoto/{groupCode}")]
         //public IActionResult GetPhoto(int groupCode)
