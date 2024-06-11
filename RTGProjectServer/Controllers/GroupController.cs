@@ -231,11 +231,29 @@ namespace ratagServerSide.Controllers
             }
 
         }
-        //we'll use in the admin website in the future
+
         //// DELETE api/<GroupController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        [HttpDelete("{groupCode}")]
+        public IActionResult Delete(int groupCode)
+        {
+            try
+            {
+                DBServices dbs = new DBServices();
+                int numEffected = dbs.deleteGroup(groupCode);
+
+                if (numEffected > 0)
+                {
+                    return Ok(numEffected);
+                }
+                else
+                {
+                    return NotFound("Group not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+        }
     }
 }
