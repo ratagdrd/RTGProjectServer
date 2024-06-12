@@ -11,11 +11,23 @@ namespace RTGProjectServer.Controllers
     public class EmployeeController : ControllerBase
     {
         [HttpPost]
-        [Route("LogIn")]
-        public int PostLogIn(string username, string password)
+        public IActionResult PostLogIn([FromBody]  Employee e)
         {
-            Employee employee = new Employee();
-            return employee.LogIn(username, password);
+            if (e == null)
+            {
+                return BadRequest(new { success = false, message = "Invalid request payload" });
+            }
+
+            int result = e.LogIn();
+            if (result == 1)
+            {
+                return Ok(new { success = true });
+            }
+            else
+            {
+                return Unauthorized(new { success = false, message = "Invalid credentials" });
+            }
+
         }
 
     }

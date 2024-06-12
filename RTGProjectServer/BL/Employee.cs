@@ -19,10 +19,10 @@
         public string Password { get => password; set => password = value; }
         public string Role { get => role; set => role = value; }
 
-        public int LogIn(string username, string password)
+        public int LogIn()
         {
             DBServices dbs = new DBServices();
-            int logInStatus = dbs.EmpLogIn(username, password);
+            int logInStatus = dbs.EmpLogIn(Username,Password);
             return logInStatus;
         }
     }
