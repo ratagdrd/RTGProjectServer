@@ -73,12 +73,34 @@ namespace ratagServerSide.Controllers
                 }
             }
         }
+        // PUT api/<QuestionForActivity>/5
+        [HttpPut]
+        public IActionResult Put([FromBody] QuestionForActivity q)
+        {
+            try
+            {
+                if (q == null)
+                {
+                    return BadRequest("Invalid question for activity object");
+                }
 
-        //    // PUT api/<QuestionForActivity>/5
-        //    [HttpPut("{id}")]
-        //    public void Put(int id, [FromBody] string value)
-        //    {
-        //    }
+                int numEffected = q.Update();
+
+                if (numEffected > 0)
+                {
+                    return Ok(numEffected);
+                }
+                else
+                {
+                    return NotFound("qusetion for activity not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+
+        }
 
         //    // DELETE api/<QuestionForActivity>/5
         //    [HttpDelete("{id}")]

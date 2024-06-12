@@ -50,6 +50,11 @@
             return dbs.InsertQues(this);
         }
 
+        public int Update()
+        {
+            DBServices dbs = new DBServices();
+            return dbs.UpdateQuestionForActivity(this);
+        }
     }
 
 }

@@ -526,6 +526,7 @@ using System.Net;
         return cmd;
     }
 
+    //Question for activity
     //get question
     public List<QuestionForActivity> GetQuestion(int activitiCode)
     {
@@ -659,6 +660,70 @@ using System.Net;
         cmd.Parameters.AddWithValue("@CorrectedAnswer", ques.CorrectedAnswer);
         cmd.Parameters.AddWithValue("@NoOfPoints", ques.NoOfPoints);
 
+        return cmd;
+    }
+
+    //update question for activity 
+    public int UpdateQuestionForActivity(QuestionForActivity question)
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        cmd = CreateUpdateQuestionForActivityWithStoredProcedure("sp_UpdateQuestionForActivity", con, question); // create the command
+
+        try
+        {
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+
+    }
+
+    private SqlCommand CreateUpdateQuestionForActivityWithStoredProcedure(String spName, SqlConnection con, QuestionForActivity question)
+    {
+        SqlCommand cmd = new SqlCommand(); // create the command object
+
+        cmd.Connection = con;              // assign the connection to the command object
+
+        cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
+
+        cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+        cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
+
+        cmd.Parameters.AddWithValue("@activitycode", question.Activitycode);
+        cmd.Parameters.AddWithValue("@questionNo", question.QuestionNo);
+        cmd.Parameters.AddWithValue("@question", question.Question);
+        cmd.Parameters.AddWithValue("@answer1", question.Answer1);
+        cmd.Parameters.AddWithValue("@answer2", question.Answer2);
+        cmd.Parameters.AddWithValue("@answer3", question.Answer3);
+        cmd.Parameters.AddWithValue("@answer4", question.Answer4);
+        cmd.Parameters.AddWithValue("@correctedAnswer", question.CorrectedAnswer);
+        cmd.Parameters.AddWithValue("@noOfPoints", question.NoOfPoints);
         return cmd;
     }
 
