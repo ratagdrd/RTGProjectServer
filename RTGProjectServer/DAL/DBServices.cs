@@ -1430,7 +1430,7 @@ public class DBServices
         ActivityStatus status = new ActivityStatus();
         while (dataReader.Read())
         {
-            //status.Activitycode= Convert.ToInt32(dataReader["activitycode"]);
+            status.Activitycode = Convert.ToInt32(dataReader["activitycode"]);
             status.IsAccessible = Convert.ToBoolean(dataReader["isAccessible"]);
             status.IsBlocked = Convert.ToBoolean(dataReader["isBlocked"]);
 
