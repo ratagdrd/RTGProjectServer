@@ -50,6 +50,12 @@
             return dbs.InsertSite(this);
         }
 
+        public int Update()
+        {
+            DBServices dbs = new DBServices();
+            return dbs.UpdateSite(this);
+        }
+
 
     }
 

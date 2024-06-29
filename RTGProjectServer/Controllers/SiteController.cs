@@ -89,16 +89,32 @@ namespace ratagServerSide.Controllers
             }
         }
 
-        // PUT api/<SiteController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
+        [HttpPut]
+        public IActionResult Put([FromBody] Site s)
+        {
+            try
+            {
+                if (s == null)
+                {
+                    return BadRequest("Invalid spot object");
+                }
 
-        //// DELETE api/<SiteController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+                int numEffected = s.Update();
+
+                if (numEffected > 0)
+                {
+                    return Ok(numEffected);
+                }
+                else
+                {
+                    return NotFound("Spot not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+
+        }
     }
 }

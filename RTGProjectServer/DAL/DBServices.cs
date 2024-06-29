@@ -915,6 +915,69 @@ public class DBServices
         return cmd;
     }
 
+    //update Site
+    public int UpdateSite(Site site)
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        cmd = CreateUpdateSiteWithStoredProcedure("sp_UpdateSite", con,  site); // create the command
+
+        try
+        {
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+
+    }
+
+    private SqlCommand CreateUpdateSiteWithStoredProcedure(String spName, SqlConnection con, Site site)
+    {
+        SqlCommand cmd = new SqlCommand(); // create the command object
+
+        cmd.Connection = con;              // assign the connection to the command object
+
+        cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
+
+        cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+        cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
+
+        cmd.Parameters.AddWithValue("@siteCode", site.SiteCode);
+        cmd.Parameters.AddWithValue("@siteName", site.SiteName);
+        cmd.Parameters.AddWithValue("@address", site.Address);
+        cmd.Parameters.AddWithValue("@sDescription", site.SDescription);
+        cmd.Parameters.AddWithValue("@phoneNo", site.PhoneNo);
+        cmd.Parameters.AddWithValue("@webSite", site.WebSite);
+        cmd.Parameters.AddWithValue("@openingHours", site.OpeningHours);
+
+        return cmd;
+    }
+
 
     //Insert Spot
     public int InsertSpot(Spot spot)
