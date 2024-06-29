@@ -47,6 +47,12 @@ namespace ratagServerSide.BL
             return dbs.UpdateRateActivity(activitycode, rateToAdd);
         }
 
+        public int Update(int activityCode, string activityname, string instruction)
+        {
+            DBServices dbs = new DBServices();
+            return dbs.UpdateActivity(activityCode, activityname, instruction);
+        }
+
         public Activity getActivityByCode(int code)
         {
             DBServices dbs = new DBServices();

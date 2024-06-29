@@ -1386,6 +1386,65 @@ public class DBServices
 
     }
 
+    //update Activity
+    public int UpdateActivity(int activityCode, string activityname, string instruction)
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        cmd = CreateUpdateActivityWithStoredProcedure("sp_UpdateActivity", con, activityCode, activityname, instruction); // create the command
+
+        try
+        {
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+
+    }
+
+    private SqlCommand CreateUpdateActivityWithStoredProcedure(String spName, SqlConnection con, int activitycode, string activityname, string instruction)
+    {
+        SqlCommand cmd = new SqlCommand(); // create the command object
+
+        cmd.Connection = con;              // assign the connection to the command object
+
+        cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
+
+        cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+        cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
+
+        cmd.Parameters.AddWithValue("@activitycode", activitycode);
+
+        cmd.Parameters.AddWithValue("@newActivityName", activityname);
+        cmd.Parameters.AddWithValue("@newInstructions", instruction);
+        return cmd;
+    }
+
     SqlCommand buildReadActivityByCodeStoredProcedureCommand(SqlConnection con, string spName, int id)
     {
 

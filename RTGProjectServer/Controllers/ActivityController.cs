@@ -1,5 +1,6 @@
 ﻿using ratagServerSide.BL;
 using Microsoft.AspNetCore.Mvc;
+using RTGProjectServer.BL;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -97,6 +98,31 @@ namespace ratagServerSide.Controllers
             }
         }
 
+
+
+        [HttpPut]
+        public IActionResult PutActivity(int activityCode, string activityname, string instruction)
+        {
+            try
+            {
+                Activity a = new Activity();
+                int numEffected = a.Update(activityCode, activityname, instruction);
+
+                if (numEffected > 0)
+                {
+                    return Ok(numEffected);
+                }
+                else
+                {
+                    return NotFound("activity not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+
+        }
 
         //// DELETE api/<ActivityController>/5
         //[HttpDelete("{id}")]
