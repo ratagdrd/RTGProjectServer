@@ -12,15 +12,32 @@ namespace RTGProjectServer.Controllers
     {
         // GET: api/<ActivityStatusController>
         [HttpGet]
-        public ActivityStatus Get(int activitycode)   //להוסיף חריגות
+        public IActionResult Get(int activitycode)
         {
+            try
+            {
                 ActivityStatus status = new ActivityStatus();
-               return status.GetStat(activitycode);
+                ActivityStatus result = status.GetStat(activitycode);
 
+                if (result != null)
+                {
+                    return Ok(result); // Return 200 OK with the fetched ActivityStatus object
+                }
+                else
+                {
+                    return NotFound($"Activity status not found for code {activitycode}"); // Return 404 Not Found if activity status is not found
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}"); // Return 500 Internal Server Error for any other exceptions
+            }
         }
 
+
+
         [HttpPut]
-        public IActionResult Put(int activityCode, bool isAccessible, bool isBlocked) //לוודא חריגות
+        public IActionResult Put(int activityCode, bool isAccessible, bool isBlocked)
         {
             try
             {
